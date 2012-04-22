@@ -1,0 +1,5 @@
+C:\NewsASP\NewsSite\NewsSite\bin\NewsSite.dll
+C:\NewsASP\NewsSite\NewsSite\bin\NewsSite.pdb
+C:\NewsASP\NewsSite\NewsSite\bin\JuiceUI.dll
+C:\NewsASP\NewsSite\NewsSite\obj\Debug\NewsSite.dll
+C:\NewsASP\NewsSite\NewsSite\obj\Debug\NewsSite.pdb
