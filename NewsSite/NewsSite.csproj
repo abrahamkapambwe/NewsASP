@@ -36,6 +36,7 @@
     <Reference Include="AWSSDK, Version=1.4.6.2, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\AWS SDK for .NET\bin\AWSSDK.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="JuiceUI">
       <HintPath>..\packages\JuiceUI.0.9.1\lib\net40\JuiceUI.dll</HintPath>
