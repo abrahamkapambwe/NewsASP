@@ -481,14 +481,21 @@ namespace Newsza.Models
         {
             if (p.Contains("/"))
             {
+                try
+                {
 
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(p);
-                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-                Stream stream = response.GetResponseStream();
-                StreamReader strReader = new StreamReader(stream);
-                string newsContent = strReader.ReadToEnd();
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(p);
+                    HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+                    Stream stream = response.GetResponseStream();
+                    StreamReader strReader = new StreamReader(stream);
+                    string newsContent = strReader.ReadToEnd();
 
-                return newsContent;
+                    return newsContent;
+                }
+                catch (Exception e)
+                {
+                    return p;
+                }
             }
             return p;
 

@@ -27,40 +27,43 @@ namespace NewsSite.Views
         {
 
             var news = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.POLITICS).ToList();
-            lstPoliticsHeadline.DataSource = news.Skip(4).Take(10);
-            lstPoliticsHeadline.DataBind();
-            lstPolitics.DataSource = news.Take(4);
-            lstPolitics.DataBind();
+            if (news != null && news.Any())
+            {
+                lstPoliticsHeadline.DataSource = news.Skip(4).Take(10);
+                lstPoliticsHeadline.DataBind();
+                lstPolitics.DataSource = news.Take(4);
+                lstPolitics.DataBind();
 
 
-            var newsbusinessheadline = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.BUSINESS).ToList();
-            lstBusiness.DataSource = newsbusinessheadline.Take(4);
-            lstBusiness.DataBind();
-            lstBusinessHeadline.DataSource = newsbusinessheadline.Skip(4).Take(10);
-            lstBusinessHeadline.DataBind();
+                var newsbusinessheadline = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.BUSINESS).ToList();
+                lstBusiness.DataSource = newsbusinessheadline.Take(4);
+                lstBusiness.DataBind();
+                lstBusinessHeadline.DataSource = newsbusinessheadline.Skip(4).Take(10);
+                lstBusinessHeadline.DataBind();
 
 
-            var newstechnology = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.TECHNOLOGY).ToList();
-            lstTechnology.DataSource = newstechnology.Take(4);
-            lstTechnology.DataBind();
-            lstTechnologyHeadlines.DataSource = newstechnology.Skip(4).Take(10);
-            lstTechnologyHeadlines.DataBind();
+                var newstechnology = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.TECHNOLOGY).ToList();
+                lstTechnology.DataSource = newstechnology.Take(4);
+                lstTechnology.DataBind();
+                lstTechnologyHeadlines.DataSource = newstechnology.Skip(4).Take(10);
+                lstTechnologyHeadlines.DataBind();
 
-            var newsSport = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.SPORT).ToList();
-            lstSports.DataSource = newsSport.Take(4);
-            lstSports.DataBind();
-            lstSportsHeadline.DataSource = newsSport.Skip(4).Take(10);
-            lstSportsHeadline.DataBind();
+                var newsSport = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.SPORT).ToList();
+                lstSports.DataSource = newsSport.Take(4);
+                lstSports.DataBind();
+                lstSportsHeadline.DataSource = newsSport.Skip(4).Take(10);
+                lstSportsHeadline.DataBind();
 
-            var newsentertainment = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.ENTERTAINMENT).ToList();
+                var newsentertainment = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.ENTERTAINMENT).ToList();
 
-            lstEntertainment.DataSource = newsentertainment.Take(4);
-            lstEntertainment.DataBind();
-            lstEntertainmentHeadlines.DataSource = newsentertainment.Skip(4).Take(10);
-            lstEntertainmentHeadlines.DataBind();
-            var comedy = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).ToList();
-            lstComedy.DataSource = comedy;
-            lstComedy.DataBind();
+                lstEntertainment.DataSource = newsentertainment.Take(4);
+                lstEntertainment.DataBind();
+                lstEntertainmentHeadlines.DataSource = newsentertainment.Skip(4).Take(10);
+                lstEntertainmentHeadlines.DataBind();
+                var comedy = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(t => t.Category == Categories.COMEDY).ToList();
+                lstComedy.DataSource = comedy;
+                lstComedy.DataBind();
+            }
 
         }
         protected void lstComedy_itemDatabound(object sender, ListViewItemEventArgs e)

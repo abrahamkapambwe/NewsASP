@@ -49,7 +49,7 @@ namespace NewsSite
                 }
 
                 var news = GetNewsFromAmazon.GetNewsFromCache();
-                if (news != null)
+                if (news != null && news.Count > 0)
                 {
                     var newsItem = news.OrderByDescending(p => p.NewsAdded).Take(1).FirstOrDefault();
                     hrheadline.Text = newsItem.NewsHeadline;
@@ -168,7 +168,7 @@ namespace NewsSite
                 Label city = (Label)e.Item.FindControl("lblCity");
                 if (property.ImageUrlAzures.Any())
                 {
-                    html.HRef = Settings.Default.PropertyUrlZM + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
+                    html.HRef = Settings.Default.PropertyUrlSA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
                     //link.ImageUrl = property.ImageUrlAzures[0].thumbnailblob;
 
                     //link.Target = "_blank";
@@ -200,7 +200,7 @@ namespace NewsSite
         {
             ListPropertyTableAzures = new List<PropertyTableAzure>();
             HttpWebRequest webRequest =
-                (HttpWebRequest)WebRequest.Create(Settings.Default.PropertySitezm);
+                (HttpWebRequest)WebRequest.Create(Settings.Default.PropertySiteza);
             HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
             Stream stream = webResponse.GetResponseStream();
             StreamReader streamRead = new StreamReader(stream);

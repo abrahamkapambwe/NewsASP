@@ -21,7 +21,7 @@ namespace NewsSite.Views
                     string videoid = Convert.ToString(Request.QueryString["VideoId"]);
                     hdfNewsID.Value = videoid;
                     var multimedia =
-                        GetNewsFromAmazon.GetVideosFromCache(Settings.Default.SouthAfricaVideo).Where(
+                        GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(
                             t => t.VideoId == Guid.Parse(videoid));
                     var comments = GetNewsFromAmazon.GetCommentsFromCache(Settings.Default.DomainNameComment).Where(n => n.NewsID == Convert.ToString(videoid));
                     lstComments.DataSource = comments;
