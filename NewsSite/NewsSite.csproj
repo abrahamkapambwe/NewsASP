@@ -68,9 +68,6 @@
     <Content Include="bin\AWSSDK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\AWSSDK.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="bin\JuiceUI.dll" />
     <Content Include="bin\NewsSite.dll" />
     <Content Include="bin\NewsSite.pdb" />
@@ -139,6 +136,7 @@
     <Content Include="images\120410-Syria-AP120410111179_200x150.jpg" />
     <Content Include="images\advert-one.jpg" />
     <Content Include="images\advert2012-04.jpg" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="images\ambulance_200x150.gif" />
     <Content Include="images\bg-dd.jpg" />
     <Content Include="images\bg.jpg" />

@@ -89,8 +89,7 @@
                     <br />
                     <div id="search-area">
                         <input type="text" runat="server" name="q" size="31" id="qsearch" />
-                        <input id="Image1" type="image" runat="server" src="images/search-button.png" border="0"
-                            name="sa" value="Search" />
+                        <asp:ImageButton ID="Image1" runat="server" ImageUrl="images/search-button.png" OnClick="Search_Click" />
                     </div>
                 </div>
             </div>
@@ -120,7 +119,7 @@
                             runat="server">SPORT </asp:HyperLink>
                     </div>
                     <div>
-                        <asp:HyperLink ID="hypMultimedia" NavigateUrl="Views/othernews.aspx?category=Multimedia"
+                        <asp:HyperLink ID="hypMultimedia" NavigateUrl="Views/multimedia.aspx?category=Multimedia"
                             Target="_parent" runat="server">MULTIMEDIA</asp:HyperLink>
                     </div>
                     <div>
@@ -201,7 +200,7 @@
                 </div>
             </div>
             <div id="headline">
-                <div class="left">
+                <%--  <div class="left">
                     <span class="red">&nbsp;LIVE:&nbsp;&nbsp;&nbsp;</span><span class="text"><asp:HyperLink
                         ID="hrheadline" runat="server"></asp:HyperLink></span>
                 </div>
@@ -209,66 +208,69 @@
                     <span>&nbsp;&nbsp;<a href=""><img src="../images/facebook.jpg" alt="Facebook" border="0px" /></a>&nbsp;&nbsp;<a
                         href=""><img src="../images/twitter.jpg" alt="Twitter" border="0px" /></a></span><span
                             class="share">SHARE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
+                </div>--%>
             </div>
-            <div style="float: left">
-                <div class="main-areaother">
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                    </asp:ContentPlaceHolder>
-                    <%--<div class="clear">
-                    </div>--%>
-                </div>
-                <div class="sidebardetails">
-                    <div class="side-bar-story">
-                        <span class="head-story">Most Popular on NewsZM</span><br />
-                        <div class="space">
-                        </div>
-                        <asp:ListView runat="server" ID="lstPopularNews" OnItemDataBound="lstPopularNews_itemDatabound">
-                            <LayoutTemplate>
-                                <div runat="server" id="itemPlaceholder">
-                                </div>
-                            </LayoutTemplate>
-                            <ItemTemplate>
-                                <span class="line-line"><span class="black">01</span> <span class="line">
-                                    <asp:HyperLink runat="server" ID="hyperNavi">
-                                        <%#Eval("NewsHeadline")%> </asp:HyperLink></span> <span class="clear"></span>
-                                    <%--<span
-                                            class="black">01</span> <span class="line"><a href="">Sherri Shepherd leaves</a></span>
-                                            <span class="clear"></span><span class="black">01</span> <span class="line"><a href="">
-                                                Where is George Zimmerman?</a></span> <span class="clear"></span><span class="black">
-                                                    01</span> <span class="line"><a href="">Quakes bring worry</a></span> <span class="clear">
-                                                    </span><span class="black">01</span> <span class="line"><a href="">Tsunami, to Indonesia</a></span>
-                                            <span class="clear"></span><span class="black">01</span> <span class="line"><a href="">
-                                                New tsunami alert</a></span> <span class="clear"></span><span class="black">01</span>
-                                            <span class="line"><a href="">Indonesia quake puts</a></span> <span class="clear">
-                                            </span>--%></span>
-                            </ItemTemplate>
-                        </asp:ListView>
+            <div style="clear: both">
+                <div style="float: left">
+                    <div class="main-areaother">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                        </asp:ContentPlaceHolder>
                     </div>
-                    <div class="property">
-                        <asp:ListView runat="server" ID="lstProperties" OnItemDataBound="lstProperty_itemDataBound">
-                            <LayoutTemplate>
-                                <ul id="itemPlaceholder" runat="server">
-                                </ul>
-                            </LayoutTemplate>
-                            <ItemTemplate>
-                                <li>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:HyperLink runat="server" ID="hypLink"></asp:HyperLink>
-                                            </td>
-                                            <td>
-                                                <asp:Label runat="server" ID="lblPrice"></asp:Label><br />
-                                                <asp:Label runat="server" ID="lblStreet"></asp:Label><br />
-                                                <asp:Label runat="server" ID="lblSuburb"></asp:Label><br />
-                                                <asp:Label runat="server" ID="lblCity"></asp:Label><br />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ItemTemplate>
-                        </asp:ListView>
+                </div>
+                <div style="float: left">
+                    <br />
+                    <br />
+                    <div class="sidebardetails">
+                        <div class="side-bar-story">
+                            <span class="head-story">Most Popular on NewsZM</span><br />
+                            <div class="space">
+                            </div>
+                            <div style="background-color: bisque; padding: 5px">
+                                <asp:ListView runat="server" ID="lstPopularNews" OnItemDataBound="lstPopularNews_itemDatabound">
+                                    <LayoutTemplate>
+                                        <div runat="server" id="itemPlaceholder">
+                                        </div>
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <span class="line-line"><span class="black">
+                                            <asp:Label runat="server" ID="lblCommentNumber" Text='<%#Eval("CommentCount") %>'></asp:Label></span>
+                                            <span class="line">
+                                                <asp:HyperLink runat="server" ID="hyperNavi">
+                                        <%#Eval("NewsHeadline")%> </asp:HyperLink></span> <span class="clear"></span>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </div>
+                        </div>
+                        <div>
+                            <h2>
+                                <b>Properties</b>
+                            </h2>
+                        </div>
+                        <div class="property">
+                            <asp:ListView runat="server" ID="lstProperties" OnItemDataBound="lstProperty_itemDataBound">
+                                <LayoutTemplate>
+                                    <ul id="itemPlaceholder" runat="server" style="list-style-type: none">
+                                    </ul>
+                                </LayoutTemplate>
+                                <ItemTemplate>
+                                    <li style="list-style-type: none">
+                                        <div style="clear: both; margin-bottom: 5px; padding-bottom: 10px; padding-top: 5px">
+                                            <div style="float: left; margin-right: 8px">
+                                                <a runat="server" id="hyparchor">
+                                                    <img alt="<%#Eval("City") %>" width="90px" height="90px" src="<%#Eval("ImageUrlAzures[0].thumbnailblob") %>" />
+                                                </a>
+                                            </div>
+                                            <div style="float: left">
+                                                <asp:Label runat="server" ID="lblPrice" Font-Size="9"></asp:Label><br />
+                                                <asp:Label runat="server" ID="lblStreet" Font-Size="9"></asp:Label><br />
+                                                <asp:Label runat="server" ID="lblSuburb" Font-Size="9"></asp:Label><br />
+                                                <asp:Label runat="server" ID="lblCity" Font-Size="9"></asp:Label><br />
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </div>
                     </div>
                 </div>
             </div>

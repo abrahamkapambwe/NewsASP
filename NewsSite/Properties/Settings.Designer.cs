@@ -70,7 +70,7 @@ namespace NewsSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.epropertysearch.co.za/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://epropertysearchza.cloudapp.net")]
         public string PropertyUrlSA {
             get {
                 return ((string)(this["PropertyUrlSA"]));
@@ -119,6 +119,51 @@ namespace NewsSite.Properties {
         public string ZimbabweVideo {
             get {
                 return ((string)(this["ZimbabweVideo"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NumberView")]
+        public string NumberView {
+            get {
+                return ((string)(this["NumberView"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://epropertysearchke.apphb.com/PropertyTableAzures")]
+        public string PropertySiteke {
+            get {
+                return ((string)(this["PropertySiteke"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://epropertysearchzm.apphb.com/PropertyTableAzures")]
+        public string PropertySitezm {
+            get {
+                return ((string)(this["PropertySitezm"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://epropertysearchza.cloudapp.net/PropertyTableAzures")]
+        public string PropertySiteza {
+            get {
+                return ((string)(this["PropertySiteza"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://epropertysearchzm.apphb.com")]
+        public string PropertyUrlZM {
+            get {
+                return ((string)(this["PropertyUrlZM"]));
             }
         }
     }

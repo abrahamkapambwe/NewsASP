@@ -136,7 +136,7 @@ namespace NewsSite {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputImage Image1;
+        protected global::System.Web.UI.WebControls.ImageButton Image1;
         
         /// <summary>
         /// hypHome control.
@@ -238,6 +238,15 @@ namespace NewsSite {
         protected global::System.Web.UI.WebControls.HyperLink hrheadline;
         
         /// <summary>
+        /// hypTopNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypTopNews;
+        
+        /// <summary>
         /// imgHeadline control.
         /// </summary>
         /// <remarks>
@@ -301,6 +310,24 @@ namespace NewsSite {
         protected global::System.Web.UI.WebControls.ListView lstmainheadline;
         
         /// <summary>
+        /// HyperLink8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink8;
+        
+        /// <summary>
+        /// HyperLink9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink9;
+        
+        /// <summary>
         /// lstSingle control.
         /// </summary>
         /// <remarks>
@@ -317,6 +344,15 @@ namespace NewsSite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lstSidebarNews;
+        
+        /// <summary>
+        /// Literal2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal2;
         
         /// <summary>
         /// lstPopularNews control.

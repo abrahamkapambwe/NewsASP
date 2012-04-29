@@ -145,7 +145,7 @@ namespace NewsSite {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputImage Image1;
+        protected global::System.Web.UI.WebControls.ImageButton Image1;
         
         /// <summary>
         /// hypHome control.
@@ -236,15 +236,6 @@ namespace NewsSite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink worldnews;
-        
-        /// <summary>
-        /// hrheadline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrheadline;
         
         /// <summary>
         /// MainContent control.

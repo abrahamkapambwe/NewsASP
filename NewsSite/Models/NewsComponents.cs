@@ -34,6 +34,27 @@ namespace News.Models
             get;
             set;
         }
+        public Stream ThumbNail
+        {
+            get;
+            set;
+        }
+        public string ThumbNailUrl
+        {
+            get;
+            set;
+        }
+        public string ThumbNailBucketName
+        {
+            get;
+            set;
+        }
+        public Guid ThumbNailKey
+        {
+            get;
+            set;
+        }
+        public bool ContainsPictures { get; set; }
         public int Views { get; set; }
         public string BucketName
         {
@@ -56,7 +77,12 @@ namespace News.Models
             set;
         }
 
+        private string _tag = "";
 
+        public string Tag {
+            get { return _tag; }
+            set { _tag = value; }
+        }
         public string NewsItem
         {
             get;
@@ -167,6 +193,7 @@ namespace News.Models
             }
         }
 
+        public Guid ViewID { get; set; }
         public int CommentCount { get; set; }
         private List<Comment> _comment;
         public List<Comment> Comment
@@ -248,6 +275,8 @@ namespace News.Models
             get;
             set;
         }
+
+        public Boolean Publish { get; set; }
         private string commentReplyID = "";
         public string CommentReplyID
         {
@@ -275,6 +304,7 @@ namespace News.Models
                 _commentReply = value;
             }
         }
+       
 
     }
     public class CommentReply
@@ -351,6 +381,23 @@ namespace News.Models
 
         public string Country { get; set; }
     }
+    public class NumberViews
+    {
+        public Guid ViewsID { get; set; }
+        public string NewsID { get; set; }
+        public int Views { get; set; }
+    }
+    public class WebOwner
+    {
+    
 
-
+        public string Comment { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string HeardUs { get; set; }
+        public string Phone { get; set; }
+        public string Query { get; set; }
+        public string Surname { get; set; }
+        public Guid WebOwnerID { get; set; }
+    }
 }

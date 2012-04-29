@@ -36,16 +36,25 @@ namespace NewsSite
         {
             if (!IsPostBack)
             {
-                LoadInTheCache();
-                lstProperties.DataSource = ListPropertyTableAzures.OrderByDescending(s => s.Added).Take(5);
-                lstProperties.DataBind();
+                //LoadInTheCache();
+                //lstProperties.DataSource = ListPropertyTableAzures.OrderByDescending(s => s.Added).Take(5);
+                //lstProperties.DataBind();
+                var multimedia =
+                        GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(p => p.Category == Categories.POLITICS).Take(1);
+                if (multimedia != null)
+                {
+                    var mult = multimedia.FirstOrDefault();
+                    if (mult != null)
+                        Literal2.Text = GetYouTubeScript(mult.YoutubeUrl);
+                }
+
                 var news = GetNewsFromAmazon.GetNewsFromCache();
                 if (news != null)
                 {
                     var newsItem = news.OrderByDescending(p => p.NewsAdded).Take(1).FirstOrDefault();
-                    hrheadline.Text =newsItem.NewsHeadline;
+                    hrheadline.Text = newsItem.NewsHeadline;
                     hrheadline.NavigateUrl = "~/Views/details.aspx?NewsID=" + newsItem.NewsID;
-                    var newsslideshow = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Take(1).FirstOrDefault();
+                    var newsslideshow = news.Where(p => p.Category == Categories.POLITICS && p.ContainsPictures).OrderByDescending(s => s.NewsAdded).Skip(1).Take(1).FirstOrDefault();
                     imgHeadline.ImageUrl = newsslideshow.Images[0].Url;
                     imgHeadline.Width = 300;
                     imgHeadline.Height = 365;
@@ -53,22 +62,39 @@ namespace NewsSite
                     lblheadlineAdded.Text = String.Format("{0:ddd, MMMM d, yyyy}", newsslideshow.NewsAdded);
                     lblSummaryContent.Text = newsslideshow.SummaryContent;
                     hyperHeadline.NavigateUrl = "~/Views/details.aspx?NewsID=" + newsslideshow.NewsID;
+                    hypTopNews.HRef = "~/Views/details.aspx?NewsID=" + newsslideshow.NewsID;
 
 
-
-                    lstheadlinePictures.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Take(4);
+                    lstheadlinePictures.DataSource = news.Where(p => p.Category == Categories.POLITICS && p.ContainsPictures).OrderByDescending(s => s.NewsAdded).Skip(1).Take(4);
                     lstheadlinePictures.DataBind();
-                    lstmainheadline.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(4).Take(14);
+                    lstmainheadline.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(5).Take(10);
                     lstmainheadline.DataBind();
-                    lstSingle.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(8).Take(1);
+                    lstSingle.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(15).Take(1);
                     lstSingle.DataBind();
-                    lstSidebarNews.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(9).Take(2);
+                    lstSidebarNews.DataSource = news.Where(p => p.Category == Categories.POLITICS).OrderByDescending(s => s.NewsAdded).Skip(16).Take(2);
                     lstSidebarNews.DataBind();
-                    lstPopularNews.DataSource = news.Take(5);
+                    lstPopularNews.DataSource = news.OrderByDescending(s => s.CommentCount).Take(5);
                     lstPopularNews.DataBind();
                 }
             }
 
+        }
+        public void Search_Click(object sender, EventArgs e)
+        {
+            string term = qsearch.Value;
+            Response.Redirect("~/Views/search.aspx?value=" + term);
+        }
+        protected string GetYouTubeScript(string id)
+        {
+            string scr = @"<object width='220' height='140'> ";
+            scr = scr + @"<param name='movie' value='http://www.youtube.com/v/" + id + "'></param> ";
+            scr = scr + @"<param name='allowFullScreen' value='true'></param> ";
+            scr = scr + @"<param name='allowscriptaccess' value='always'></param> ";
+            scr = scr + @"<embed src='http://www.youtube.com/v/" + id + "' ";
+            scr = scr + @"type='application/x-shockwave-flash' allowscriptaccess='always' ";
+            scr = scr + @"allowfullscreen='true' width='220' height='140'> ";
+            scr = scr + @"</embed></object>";
+            return scr;
         }
         protected void lstheadlinePictures_itemDatabound(object sender, ListViewItemEventArgs e)
         {
@@ -135,16 +161,16 @@ namespace NewsSite
             {
                 PropertyTableAzure property = (PropertyTableAzure)e.Item.DataItem;
                 //HyperLink link = (HyperLink)e.Item.FindControl("hypLink");
-                HtmlAnchor html = (HtmlAnchor)e.Item.FindControl("hyparchor"); 
+                HtmlAnchor html = (HtmlAnchor)e.Item.FindControl("hyparchor");
                 Label price = (Label)e.Item.FindControl("lblPrice");
                 Label street = (Label)e.Item.FindControl("lblStreet");
                 Label suburb = (Label)e.Item.FindControl("lblSuburb");
                 Label city = (Label)e.Item.FindControl("lblCity");
                 if (property.ImageUrlAzures.Any())
                 {
-                    html.HRef=Settings.Default.PropertyUrlKA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
+                    html.HRef = Settings.Default.PropertyUrlZM + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
                     //link.ImageUrl = property.ImageUrlAzures[0].thumbnailblob;
-                    
+
                     //link.Target = "_blank";
                     //link.NavigateUrl = Settings.Default.PropertyUrlKA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
                 }
@@ -167,14 +193,14 @@ namespace NewsSite
                 LoadProperties();
 
             }
-           
+
 
         }
         private void LoadProperties()
         {
             ListPropertyTableAzures = new List<PropertyTableAzure>();
             HttpWebRequest webRequest =
-                (HttpWebRequest)WebRequest.Create("http://epropertysearchke.apphb.com/PropertyTableAzures");
+                (HttpWebRequest)WebRequest.Create(Settings.Default.PropertySitezm);
             HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
             Stream stream = webResponse.GetResponseStream();
             StreamReader streamRead = new StreamReader(stream);
@@ -236,7 +262,7 @@ namespace NewsSite
                     PropertyTableAzure.ImageUrlAzures.Add(img);
                 }
                 ListPropertyTableAzures.Add(PropertyTableAzure);
-               
+
             }
             HttpRuntime.Cache.Insert("PropertyEstate", ListPropertyTableAzures, null, DateTime.UtcNow.AddHours(2), System.Web.Caching.Cache.NoSlidingExpiration);
         }

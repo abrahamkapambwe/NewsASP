@@ -11,6 +11,7 @@ using NewsAppWebRole.Models;
 using NewsSite.Properties;
 using News.Models;
 using Newsza.Models;
+using System.Web.UI.HtmlControls;
 
 namespace NewsSite
 {
@@ -36,13 +37,13 @@ namespace NewsSite
             {
                 LoadInTheCache();
                 var news = GetNewsFromAmazon.GetNewsFromCache();
-                lstPopularNews.DataSource = news.Take(5);
+                lstPopularNews.DataSource = news.OrderByDescending(s => s.CommentCount).Take(5);
                 lstPopularNews.DataBind();
             }
         }
         public void Search_Click(object sender, EventArgs e)
         {
-            string term = "";
+            string term = qsearch.Value;
             Response.Redirect("search.aspx?value=" + term);
         }
 
@@ -77,16 +78,19 @@ namespace NewsSite
             if (e.Item.ItemType == ListViewItemType.DataItem)
             {
                 PropertyTableAzure property = (PropertyTableAzure)e.Item.DataItem;
-                HyperLink link = (HyperLink)e.Item.FindControl("hypLink");
+                //HyperLink link = (HyperLink)e.Item.FindControl("hypLink");
+                HtmlAnchor html = (HtmlAnchor)e.Item.FindControl("hyparchor");
                 Label price = (Label)e.Item.FindControl("lblPrice");
                 Label street = (Label)e.Item.FindControl("lblStreet");
                 Label suburb = (Label)e.Item.FindControl("lblSuburb");
                 Label city = (Label)e.Item.FindControl("lblCity");
                 if (property.ImageUrlAzures.Any())
                 {
-                    link.ImageUrl = property.ImageUrlAzures[0].thumbnailblob;
-                    link.Target = "_blank";
-                    link.NavigateUrl = Settings.Default.PropertyUrlKA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
+                    html.HRef = Settings.Default.PropertyUrlKA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
+                    //link.ImageUrl = property.ImageUrlAzures[0].thumbnailblob;
+
+                    //link.Target = "_blank";
+                    //link.NavigateUrl = Settings.Default.PropertyUrlKA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
                 }
                 price.Text = property.Price;
                 street.Text = property.StreetName;

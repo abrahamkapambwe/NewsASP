@@ -17,5 +17,7 @@ namespace Newsza.Models
         public const string GOSSIP = "Gossip";
         public const string BREAKINGNEWS = "Breaking news";
         public const string MULTIMEDIA = "Multimedia";
+        public const string COMEDY = "Comedy";
+        public const string WORLDNEWS = "WorldNews";
     }
 }

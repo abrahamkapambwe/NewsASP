@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using News.Models;
 using Newsza.Models;
+using System.Web.UI.HtmlControls;
 
 namespace NewsSite.Views
 {
@@ -17,53 +18,132 @@ namespace NewsSite.Views
                 if (Request.QueryString["category"] != null)
                 {
                     string category = Convert.ToString(Request.QueryString["category"]);
+                    string value = Request.QueryString["value"] != null ? Request.QueryString["value"].ToString() : "";
                     switch (category)
                     {
                         case Categories.BUSINESS:
+
+                            lblHeadline.Text = "Business";
                             var newsb =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.BUSINESS).
                                     ToList();
-                            LoadNewsArticles(newsb);
+                            if(!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newsb);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newsb);
+                            }
+                           
                             break;
                         case Categories.ENTERTAINMENT:
+                            lblHeadline.Text = "Entertainment";
                             var newse =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.ENTERTAINMENT).
                                     ToList();
-                            LoadNewsArticles(newse);
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newse);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newse);
+                            }
                             break;
                         case Categories.TECHNOLOGY:
+                            lblHeadline.Text = "Technology";
                             var newst =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.TECHNOLOGY).
                                     ToList();
-                            LoadNewsArticles(newst);
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newst);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newst);
+                            }
                             break;
                         case Categories.LIFESTYLE:
+                            lblHeadline.Text = "Lifestyle";
                             var newsl =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.LIFESTYLE).
                                     ToList();
-                            LoadNewsArticles(newsl);
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newsl);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newsl);
+                            }
                             break;
                         case Categories.GOSSIP:
+                            lblHeadline.Text = "Business";
                             var newsg =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.GOSSIP).ToList();
-                            LoadNewsArticles(newsg);
+                                  
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newsg);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newsg);
+                            }
                             break;
                         case Categories.POLITICS:
+                            lblHeadline.Text = "Politics";
                             var newsp =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.POLITICS).
                                     ToList();
-                            LoadNewsArticles(newsp);
+
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newsp);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newsp);
+                            }
                             break;
                         case Categories.SPORT:
+                            lblHeadline.Text = "Sport";
                             var newss =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.SPORT).ToList();
-                            LoadNewsArticles(newss);
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newss);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newss);
+                            }
+                            break;
+                        case Categories.WORLDNEWS:
+                            lblHeadline.Text = "World News";
+                            var newswn =
+                                GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.WORLDNEWS).ToList();
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                GetPopular(newswn);
+                            }
+                            else
+                            {
+                                LoadNewsArticles(newswn);
+                            }
                             break;
                     }
                 }
             }
         }
 
+        private void GetPopular(List<NewsComponents> newsComponents)
+        {
+            var newsItems = newsComponents.OrderByDescending(p => p.CommentCount).ToList();
+            LoadNewsArticles(newsItems);
+        }
         private void LoadNewsArticles(List<NewsComponents> news)
         {
             lstothernews.DataSource = news;
@@ -78,11 +158,11 @@ namespace NewsSite.Views
                 if (newsComponents.Images.Any())
                     img.ImageUrl = newsComponents.Images[0].Url;
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
+                HtmlAnchor anchor = (HtmlAnchor)e.Item.FindControl("photourl");
+                anchor.HRef = "~/Views/details.aspx?NewsID=" + newsComponents.NewsID;
                 lnk.NavigateUrl = "~/Views/details.aspx?NewsID=" + newsComponents.NewsID;
-
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/details.aspx?NewsID=" + newsComponents.NewsID;
-
             }
         }
     }

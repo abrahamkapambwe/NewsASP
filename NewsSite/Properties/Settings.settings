@@ -18,7 +18,7 @@
       <Value Profile="(Default)">rssnewsengine</Value>
     </Setting>
     <Setting Name="PropertyUrlSA" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.epropertysearch.co.za/</Value>
+      <Value Profile="(Default)">http://epropertysearchza.cloudapp.net</Value>
     </Setting>
     <Setting Name="PropertyUrlKA" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://epropertysearchke.apphb.com/</Value>
@@ -34,6 +34,21 @@
     </Setting>
     <Setting Name="ZimbabweVideo" Type="System.String" Scope="Application">
       <Value Profile="(Default)">zimbabwevideo</Value>
+    </Setting>
+    <Setting Name="NumberView" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">NumberView</Value>
+    </Setting>
+    <Setting Name="PropertySiteke" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://epropertysearchke.apphb.com/PropertyTableAzures</Value>
+    </Setting>
+    <Setting Name="PropertySitezm" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://epropertysearchzm.apphb.com/PropertyTableAzures</Value>
+    </Setting>
+    <Setting Name="PropertySiteza" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://epropertysearchza.cloudapp.net/PropertyTableAzures</Value>
+    </Setting>
+    <Setting Name="PropertyUrlZM" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://epropertysearchzm.apphb.com</Value>
     </Setting>
   </Settings>
 </SettingsFile>

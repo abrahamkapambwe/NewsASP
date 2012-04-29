@@ -22,7 +22,7 @@ namespace NewsSite.Views
                 LoadNewsHeadline();
             }
         }
-       
+
         private void LoadNewsHeadline()
         {
 
@@ -58,20 +58,54 @@ namespace NewsSite.Views
             lstEntertainment.DataBind();
             lstEntertainmentHeadlines.DataSource = newsentertainment.Skip(4).Take(10);
             lstEntertainmentHeadlines.DataBind();
+            var comedy = GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).ToList();
+            lstComedy.DataSource = comedy;
+            lstComedy.DataBind();
 
+        }
+        protected void lstComedy_itemDatabound(object sender, ListViewItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListViewItemType.DataItem)
+            {
 
+                Multimedia newsComponents = (Multimedia)e.Item.DataItem;
+                Image img = (Image)e.Item.FindControl("imgPhoto");
+                HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
+                HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
+                linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+
+            }
+        }
+        protected void lsttourism_itemDatabound(object sender, ListViewItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListViewItemType.DataItem)
+            {
+
+                Multimedia newsComponents = (Multimedia)e.Item.DataItem;
+                Image img = (Image)e.Item.FindControl("imgPhoto");
+                HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
+                HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
+                linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+
+            }
         }
         protected void lstPolitics_itemDatabound(object sender, ListViewItemEventArgs e)
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
             {
-                
+
                 Multimedia newsComponents = (Multimedia)e.Item.DataItem;
                 Image img = (Image)e.Item.FindControl("imgPhoto");
-                HtmlAnchor htmlAnchor = (HtmlAnchor) e.Item.FindControl("hyperThumbNail");
+                HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
-                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
-                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
 
@@ -89,7 +123,18 @@ namespace NewsSite.Views
 
             }
         }
+        protected void lsttourismHeadlines_itemDatabound(object sender, ListViewItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListViewItemType.DataItem)
+            {
+                Multimedia newsComponents = (Multimedia)e.Item.DataItem;
 
+                HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+
+
+            }
+        }
         protected void lstBusiness_itemDatabound(object sender, ListViewItemEventArgs e)
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
@@ -98,8 +143,8 @@ namespace NewsSite.Views
                 Image img = (Image)e.Item.FindControl("imgPhoto");
                 HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
-                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
-                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
 
@@ -126,8 +171,8 @@ namespace NewsSite.Views
                 Image img = (Image)e.Item.FindControl("imgPhoto");
                 HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
-                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
-                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
 
@@ -154,8 +199,8 @@ namespace NewsSite.Views
                 Image img = (Image)e.Item.FindControl("imgPhoto");
                 HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
-                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
-                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
             }
@@ -181,8 +226,8 @@ namespace NewsSite.Views
                 Image img = (Image)e.Item.FindControl("imgPhoto");
                 HtmlAnchor htmlAnchor = (HtmlAnchor)e.Item.FindControl("hyperThumbNail");
                 HyperLink lnk = (HyperLink)e.Item.FindControl("hyperNavi");
-                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
-                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?NewsID=" + newsComponents.VideoId;
+                lnk.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
+                htmlAnchor.HRef = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
                 HyperLink linksummary = (HyperLink)e.Item.FindControl("linksummary");
                 linksummary.NavigateUrl = "~/Views/multimediaItem.aspx?VideoId=" + newsComponents.VideoId;
             }

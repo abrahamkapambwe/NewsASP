@@ -13,6 +13,15 @@ namespace NewsSite.Views {
     public partial class othernews {
         
         /// <summary>
+        /// lblHeadline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeadline;
+        
+        /// <summary>
         /// lstothernews control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace NewsSite.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lstothernews;
+        
+        /// <summary>
+        /// BeforeListDataPager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataPager BeforeListDataPager;
     }
 }

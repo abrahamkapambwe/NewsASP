@@ -21,6 +21,7 @@ namespace Newsza.Models
     {
 
         private static AmazonSimpleDBClient _sdbClient;
+
         public static AmazonSimpleDBClient sdbClient
         {
             get
@@ -30,7 +31,9 @@ namespace Newsza.Models
                 return _sdbClient;
             }
         }
+
         private static AmazonS3Client _s3Client;
+
         public static AmazonS3Client s3Client
         {
             get
@@ -40,71 +43,108 @@ namespace Newsza.Models
                 return _s3Client;
             }
         }
+
+        public static void SaveViews(string domainName, NumberViews numberViews)
+        {
+            PutAttributesRequest putViewsAttrRequest = new PutAttributesRequest()
+                .WithDomainName(domainName)
+                .WithItemName(Convert.ToString(numberViews.ViewsID));
+            putViewsAttrRequest.
+                WithAttribute(new ReplaceableAttribute
+                                  {
+                                      Name = "ViewsID",
+                                      Value = Convert.ToString(numberViews.ViewsID),
+                                      Replace = false
+                                  },
+
+                              new ReplaceableAttribute
+                                  {
+                                      Name = "NewsID",
+                                      Value = numberViews.NewsID,
+                                      Replace = false
+                                  },
+                              new ReplaceableAttribute
+                                  {
+                                      Name = "Views",
+                                      Value = Convert.ToString(numberViews.Views),
+                                      Replace = false
+                                  });
+            sdbClient.PutAttributes(putViewsAttrRequest);
+        }
+
         public static void SaveComments(string domainName, Comment comment)
         {
 
-            PutAttributesRequest putAttrRequest = new PutAttributesRequest()
+            PutAttributesRequest putCommentAttrRequest = new PutAttributesRequest()
                 .WithDomainName(domainName)
                 .WithItemName(Convert.ToString(comment.CommentID));
-            putAttrRequest.WithAttribute(new ReplaceableAttribute
-            {
-                Name = "NewsID",
-                Value = Convert.ToString(comment.NewsID),
-                Replace = false
-            },
+            putCommentAttrRequest.WithAttribute
+                (new ReplaceableAttribute
+                   {
+                       Name = "NewsID",
+                       Value = Convert.ToString(comment.NewsID),
+                       Replace = false
+                   },
 
-            new ReplaceableAttribute
-            {
-                Name = "UserName",
-                Value = comment.UserName,
-                Replace = false
-            },
-            new ReplaceableAttribute
-            {
-                Name = "CommentID",
-                Value = Convert.ToString(comment.CommentID),
-                Replace = false
-            },
-             new ReplaceableAttribute
-             {
-                 Name = "CommentAdded",
-                 Value = Convert.ToString(comment.CommentAdded),
-                 Replace = false
-             }
-             ,
-             new ReplaceableAttribute
-             {
-                 Name = "CommentItem",
-                 Value = SaveHtml(comment.CommentItem),
-                 Replace = false
-             }
-              ,
-             new ReplaceableAttribute
-             {
-                 Name = "CommentReplyID",
-                 Value = comment.CommentReplyID,
-                 Replace = false
-             }
-              ,
-             new ReplaceableAttribute
-             {
-                 Name = "Likes",
-                 Value = Convert.ToString(comment.Likes),
-                 Replace = true
-             }
-           );
-            sdbClient.PutAttributes(putAttrRequest);
+                     new ReplaceableAttribute
+                   {
+                       Name = "UserName",
+                       Value = comment.UserName,
+                       Replace = false
+                   },
+                     new ReplaceableAttribute
+                    {
+                        Name = "CommentID",
+                        Value = Convert.ToString(comment.CommentID),
+                        Replace = false
+                    },
+                    new ReplaceableAttribute
+                    {
+                        Name = "CommentAdded",
+                        Value = Convert.ToString(comment.CommentAdded),
+                        Replace = false
+                    }
+                    ,
+                     new ReplaceableAttribute
+                     {
+                         Name = "CommentItem",
+                         Value = SaveHtml(comment.CommentItem),
+                         Replace = false
+                     }
+                    ,
+                    new ReplaceableAttribute
+                    {
+                        Name = "CommentReplyID",
+                        Value = string.IsNullOrWhiteSpace(comment.CommentReplyID) ? "" : comment.CommentReplyID,
+                        Replace = false
+                    }
+                     ,
+                    new ReplaceableAttribute
+                    {
+                        Name = "Likes",
+                        Value = string.IsNullOrWhiteSpace(Convert.ToString(comment.Likes)) ? "" : Convert.ToString(comment.Likes),
+                        Replace = true
+                    }
+                    , new ReplaceableAttribute
+                    {
+                        Name = "Publish",
+                        Value = Convert.ToString(comment.Publish),
+                        Replace = true
+                    }
+                );
+            sdbClient.PutAttributes(putCommentAttrRequest);
         }
 
         private static string SaveHtml(string p)
         {
 
             string folder = Convert.ToString(Guid.NewGuid());
-            string bucketName = Settings.Default.BucketName + "/" + Settings.Default.KenyaVideo + "/" + folder;
+            Guid keyValue = Guid.NewGuid();
+            string bucketName = Settings.Default.BucketName + "/" + Settings.Default.DomainNameZM + "/" + folder;
             PutObjectRequest putObjectNewsItem = new PutObjectRequest();
             putObjectNewsItem.WithBucketName(bucketName);
             putObjectNewsItem.CannedACL = S3CannedACL.PublicRead;
-            putObjectNewsItem.Key = Convert.ToString(Guid.NewGuid());
+            putObjectNewsItem.Key = Convert.ToString(keyValue);
             putObjectNewsItem.ContentType = "text/html";
             putObjectNewsItem.ContentBody = p;
 
@@ -118,9 +158,11 @@ namespace Newsza.Models
                     //log headers ("Response Header: {0}, Value: {1}", key, headers.Get(key));
                 }
             }
-            return "https://" + Settings.Default.BucketName + ".s3.amazonaws.com " + "/" + Settings.Default.KenyaVideo + "/" + folder;
+            return "https://" + Settings.Default.BucketName + ".s3.amazonaws.com" + "/" + Settings.Default.DomainNameZM +
+                   "/" + folder + "/" + keyValue;
 
         }
+
         public static void SaveLikes(string domainName, Comment comment)
         {
 
@@ -128,22 +170,23 @@ namespace Newsza.Models
                 .WithDomainName(domainName)
                 .WithItemName(Convert.ToString(comment.CommentID));
             putAttrRequest.WithAttribute(new ReplaceableAttribute
-            {
-                Name = "Likes",
-                Value = Convert.ToString(comment.Likes),
-                Replace = true
-            }
+                                             {
+                                                 Name = "Likes",
+                                                 Value = Convert.ToString(comment.Likes),
+                                                 Replace = true
+                                             }
 
-           );
+                );
             sdbClient.PutAttributes(putAttrRequest);
         }
+
         #region GetStories
 
         public static List<Multimedia> GetMultimedia(string domainName)
         {
             List<Multimedia> multimedias = new List<Multimedia>();
             Multimedia multimedia;
-            String selectExpression = "Select * From " + domainName;
+            String selectExpression = "Select  * From " + domainName;
             SelectRequest selectRequestAction = new SelectRequest().WithSelectExpression(selectExpression);
             SelectResponse selectResponse = sdbClient.Select(selectRequestAction);
             if (selectResponse.IsSetSelectResult())
@@ -185,6 +228,9 @@ namespace Newsza.Models
                                 case "Publish":
                                     multimedia.Publish = Convert.ToBoolean(attribute.Value);
                                     break;
+                                case "Url":
+                                    multimedia.ThumbNail = attribute.Value;
+                                    break;
 
                             }
                         }
@@ -196,6 +242,56 @@ namespace Newsza.Models
 
             return multimedias;
         }
+
+        public static List<NumberViews> GetNumberViews(string domainName)
+        {
+            List<NumberViews> numberViewses = new List<NumberViews>();
+            NumberViews numberViews;
+            String selectExpression = "Select * From " + domainName;
+            SelectRequest selectRequestAction = new SelectRequest().WithSelectExpression(selectExpression);
+            SelectResponse selectResponse = sdbClient.Select(selectRequestAction);
+            if (selectResponse.IsSetSelectResult())
+            {
+                SelectResult selectResult = selectResponse.SelectResult;
+                foreach (Item item in selectResult.Item)
+                {
+                    numberViews = new NumberViews();
+                    foreach (Amazon.SimpleDB.Model.Attribute attribute in item.Attribute)
+                    {
+
+
+                        if (attribute.IsSetName())
+                        {
+                            string name = attribute.Name;
+                        }
+                        if (attribute.IsSetValue())
+                        {
+                            switch (attribute.Name)
+                            {
+                                case "ViewsID":
+                                    numberViews.ViewsID = Guid.Parse(attribute.Value);
+                                    break;
+
+                                case "NewsID":
+                                    numberViews.NewsID = attribute.Value;
+                                    break;
+                                case "Views":
+                                    numberViews.Views = Convert.ToInt32(attribute.Value);
+                                    break;
+
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            return numberViewses;
+        }
+
+
+
         public static List<Comment> GetComments(string domainName)
         {
             List<Comment> comments = new List<Comment>();
@@ -249,6 +345,12 @@ namespace Newsza.Models
                                 case "CommentReplyID":
                                     comment.CommentReplyID = attribute.Value;
                                     break;
+                                case "Publish":
+                                    comment.Publish = Convert.ToBoolean(attribute.Value);
+                                    break;
+                                case "Email":
+                                    comment.Email = attribute.Value;
+                                    break;
 
                             }
                             i++;
@@ -260,7 +362,7 @@ namespace Newsza.Models
             return comments;
         }
 
-       
+
 
         public static List<Comment> FormatedComments(string domainName)
         {
@@ -303,7 +405,7 @@ namespace Newsza.Models
             List<NewsComponents> newsItems = new List<NewsComponents>();
             NewsComponents newsItem = null;
 
-            String selectExpression = "Select NewsID,Source,Section,Publish,NewsHeadline,NewsAdded,Photos,Summary,Category,SummaryContent From " + domainName;
+            String selectExpression = "Select NewsID,Source,Section,Publish,NewsHeadline,NewsAdded,Photos,Summary,Category,SummaryContent,ThumbNailUrl From " + domainName;
             SelectRequest selectRequestAction = new SelectRequest().WithSelectExpression(selectExpression);
             SelectResponse selectResponse = sdbClient.Select(selectRequestAction);
             if (selectResponse.IsSetSelectResult())
@@ -362,6 +464,9 @@ namespace Newsza.Models
                                 case "SummaryContent":
                                     newsItem.SummaryContent = attribute.Value;
                                     break;
+                                case "ThumbNailUrl":
+                                    newsItem.ThumbNailUrl = attribute.Value;
+                                    break;
                             }
                             i++;
                         }
@@ -377,8 +482,8 @@ namespace Newsza.Models
             if (p.Contains("/"))
             {
 
-                HttpWebRequest webRequest = (HttpWebRequest) WebRequest.Create(p);
-                HttpWebResponse response = (HttpWebResponse) webRequest.GetResponse();
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(p);
+                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
                 Stream stream = response.GetResponseStream();
                 StreamReader strReader = new StreamReader(stream);
                 string newsContent = strReader.ReadToEnd();
@@ -459,7 +564,7 @@ namespace Newsza.Models
             }
             else
             {
-                news = LoadItemsInCache().Where(p => p.Publish == true).ToList();
+                news = LoadItemsInCache().Where(p => p.Publish == true).OrderByDescending(p => p.NewsAdded).ToList();
                 HttpRuntime.Cache.Insert("NewsItems", news, null, DateTime.Now.AddMinutes(60), System.Web.Caching.Cache.NoSlidingExpiration);
             }
             return news;
@@ -474,24 +579,40 @@ namespace Newsza.Models
             }
             else
             {
-                videos = GetMultimedia(domainName).Where(p => p.Publish == true).ToList();
+                videos = GetMultimedia(domainName).Where(p => p.Publish == true).OrderByDescending(p => p.YouTubeAdded).ToList();
                 HttpRuntime.Cache.Insert("VideoItems", videos, null, DateTime.Now.AddMinutes(60), System.Web.Caching.Cache.NoSlidingExpiration);
             }
             return videos;
         }
+        public static List<Comment> GetCommentsFromCache(string domainName)
+        {
 
+            List<Comment> comments= null;
+            if (HttpRuntime.Cache["CommentItems"] != null)
+            {
+                comments = (List<Comment>)HttpRuntime.Cache["CommentItems"];
+            }
+            else
+            {
+                comments = GetComments(domainName).Where(p => p.Publish == true).OrderByDescending(p => p.CommentAdded).ToList();
+                HttpRuntime.Cache.Insert("CommentItems", comments, null, DateTime.Now.AddMinutes(10), System.Web.Caching.Cache.NoSlidingExpiration);
+            }
+            return comments;
+        }
         private static List<NewsComponents> LoadItemsInCache()
         {
-            
+
             var news = GetNewsStories(Settings.Default.DomainNameZM, sdbClient);
-            var comments = GetComments(Settings.Default.DomainNameZM);
+            var comments = GetCommentsFromCache(Settings.Default.DomainNameComment);
+            var views = GetNumberViews(Settings.Default.NumberView);
+            bool viewsContains = views.Any();
             List<NewsComponents> list = new List<NewsComponents>();
-          
+
             Images img;
             int i = 0;
             foreach (var item in news)
             {
-                
+
                 var photourl = item.NewsPhotoUrl.Split(new char[] { '|' });
                 foreach (var url in photourl)
                 {
@@ -502,10 +623,20 @@ namespace Newsza.Models
                         item.Images.Add(img);
                     }
                 }
+                if (string.IsNullOrWhiteSpace(item.NewsPhotoUrl))
+                {
+                    item.ContainsPictures = false;
+                }
+                else
+                {
+                    item.ContainsPictures = true;
+                }
+                item.CommentCount = comments.Where(p => p.NewsID == Convert.ToString(item.NewsID)).Count();
 
-                item.CommentCount = comments.Count;
-                
-                list.Add(item);
+                item.Views = !viewsContains ? 1 : views.Where(p => p.NewsID == Convert.ToString(item.NewsID)).FirstOrDefault().Views;
+                item.ViewID = !viewsContains
+                                  ? Guid.NewGuid()
+                                  : views.Where(p => p.NewsID == Convert.ToString(item.NewsID)).FirstOrDefault().ViewsID;
             }
 
             return news;
