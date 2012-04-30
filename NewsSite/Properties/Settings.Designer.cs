@@ -52,7 +52,7 @@ namespace NewsSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("zambianews")]
+        [global::System.Configuration.DefaultSettingValueAttribute("southafricanews")]
         public string DomainNameZM {
             get {
                 return ((string)(this["DomainNameZM"]));

@@ -9,7 +9,7 @@
         <div class="story">
             <div class="inner-design-large">
                 <div class="sub-title">
-                    <span>Politics</span>
+                    <span>News</span>
                 </div>
                 <div style="float: left;">
                     <asp:ListView runat="server" ID="lstPolitics" OnItemDataBound="lstPolitics_itemDatabound">
@@ -55,7 +55,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink8" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=Politics"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">
@@ -125,7 +125,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink3" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=WorldNews"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">
@@ -195,7 +195,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink1" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=Business"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">
@@ -263,7 +263,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink2" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=Technology"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">
@@ -331,7 +331,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink4" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=Sport"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">
@@ -399,7 +399,7 @@
                         </asp:ListView>
                         <span><span class="smaller"></span>
                             <asp:HyperLink ID="HyperLink5" class="highlighted" runat="server" NavigateUrl="~/Views/othernews.aspx?category=Entertainment"
-                                Target="_parent">More from newsZM » </asp:HyperLink>
+                                Target="_parent">More from newsza » </asp:HyperLink>
                         </span>
                     </div>
                     <div class="clear">

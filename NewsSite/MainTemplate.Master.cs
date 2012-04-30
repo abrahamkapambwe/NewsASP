@@ -36,11 +36,11 @@ namespace NewsSite
         {
             if (!IsPostBack)
             {
-                //LoadInTheCache();
-                //lstProperties.DataSource = ListPropertyTableAzures.OrderByDescending(s => s.Added).Take(5);
-                //lstProperties.DataBind();
+                LoadInTheCache();
+                lstProperties.DataSource = ListPropertyTableAzures.OrderByDescending(s => s.Added).Take(5);
+                lstProperties.DataBind();
                 var multimedia =
-                        GetNewsFromAmazon.GetVideosFromCache(Settings.Default.ZambiaVideo).Where(p => p.Category == Categories.POLITICS).Take(1);
+                        GetNewsFromAmazon.GetVideosFromCache(Settings.Default.SouthAfricaVideo).Where(p => p.Category == Categories.POLITICS).Take(1);
                 if (multimedia != null)
                 {
                     var mult = multimedia.FirstOrDefault();
@@ -51,7 +51,7 @@ namespace NewsSite
                 var news = GetNewsFromAmazon.GetNewsFromCache();
                 if (news != null && news.Count > 0)
                 {
-                    var newsItem = news.OrderByDescending(p => p.NewsAdded).Take(1).FirstOrDefault();
+                    var newsItem = news.OrderByDescending(p => p.NewsAdded).Where(p => p.Category == Categories.POLITICS).Take(1).FirstOrDefault();
                     hrheadline.Text = newsItem.NewsHeadline;
                     hrheadline.NavigateUrl = "~/Views/details.aspx?NewsID=" + newsItem.NewsID;
                     var newsslideshow = news.Where(p => p.Category == Categories.POLITICS && p.ContainsPictures).OrderByDescending(s => s.NewsAdded).Skip(1).Take(1).FirstOrDefault();

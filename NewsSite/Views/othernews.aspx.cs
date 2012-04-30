@@ -94,7 +94,7 @@ namespace NewsSite.Views
                             }
                             break;
                         case Categories.POLITICS:
-                            lblHeadline.Text = "Politics";
+                            lblHeadline.Text = "News";
                             var newsp =
                                 GetNewsFromAmazon.GetNewsFromCache().Where(t => t.Category == Categories.POLITICS).
                                     ToList();

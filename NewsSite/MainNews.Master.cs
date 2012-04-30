@@ -89,7 +89,7 @@ namespace NewsSite
                 Label city = (Label)e.Item.FindControl("lblCity");
                 if (property.ImageUrlAzures.Any())
                 {
-                    html.HRef = Settings.Default.PropertyUrlZM + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
+                    html.HRef = Settings.Default.PropertyUrlSA + "Public/PropertyDetails.aspx?PropertyID=" + property.PropertyID;
                     //link.ImageUrl = property.ImageUrlAzures[0].thumbnailblob;
 
                     //link.Target = "_blank";

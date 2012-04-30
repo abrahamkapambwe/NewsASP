@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>News - Zambia</title>
+    <title>News - South Africa</title>
     <link href="Styles/stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="Styles/style.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -69,7 +69,7 @@
                             Target="_parent" runat="server">BUSINESS</asp:HyperLink>
                     </div>
                     <div>
-                        <asp:HyperLink ID="property" NavigateUrl="#" Target="_blank" runat="server">PROPERTIES </asp:HyperLink>
+                        <asp:HyperLink ID="property" NavigateUrl="http://www.epropertysearch.co.za" Target="_blank" runat="server">PROPERTIES </asp:HyperLink>
                     </div>
                     <div>
                         <asp:HyperLink ID="worldnews" NavigateUrl="~/Views/othernews.aspx?category=WORLDNEWS"
@@ -161,11 +161,11 @@
                             runat="server">LIFESTYLE </asp:HyperLink>
                     </div>
                     <div>
-                        <asp:HyperLink ID="hypproperty" runat="server" NavigateUrl="http:www.epropertysearch.co.za"
+                        <asp:HyperLink ID="hypproperty" runat="server" NavigateUrl="http://www.epropertysearch.co.za"
                             Target="_parent">PROPERTIES </asp:HyperLink>
                     </div>
                     <div>
-                        <asp:HyperLink ID="HyperLink5" NavigateUrl="~/Views/othernews.aspx?category=WORLDNEWS"
+                        <asp:HyperLink ID="HyperLink5" NavigateUrl="~/Views/othernews.aspx?category=WorldNews"
                             Target="_blank" runat="server">WORLD NEWS </asp:HyperLink></div>
                     <div id="last">
                         <%-- //<a href="link.html" target="_parent">MORE </a>--%>
@@ -395,7 +395,7 @@
                             <div class="space">
                             </div>
                             <div class="side-bar-story">
-                                <span class="head-story">Most Popular on NewsZM</span><br />
+                                <span class="head-story">Most Popular on newsza</span><br />
                                 <div class="space">
                                 </div>
                                 <div style="background-color: bisque; padding: 5px">
@@ -487,7 +487,7 @@
             </div>--%>
             <div class="footerColumns">
                 <ul class="footerLinks cbsnews">
-                    <li class="title">newsZM.apphb.com</li>
+                    <li class="title">newsza.apphb.com</li>
                     <%-- <li><a href="">Site Map</a></li>
                     <li><a href="">Video Site Map</a></li>
                     <li><a href="" onclick="">Help</a></li>
@@ -524,7 +524,7 @@
                                 Text="Terms of Use"></asp:HyperLink></li>
                         <li>
                             <asp:HyperLink runat="server" ID="HyperLink2" NavigateUrl="~/Views/AboutUs.aspx"
-                                Text="About NewsZM"></asp:HyperLink></li>
+                                Text="About newsza"></asp:HyperLink></li>
                         <li>
                             <asp:HyperLink runat="server" ID="HyperLink3" NavigateUrl="~/Views/Adversite.aspx"
                                 Text="Advertise"></asp:HyperLink></li>
